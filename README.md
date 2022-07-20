@@ -1,58 +1,16 @@
-# RookieDB
-
-![The official unofficial mascot of the class projects](images/derpydb-small.jpg)
-
 This repo contains a bare-bones database implementation, which supports
-executing simple transactions in series. In the assignments of
-this class, you will be adding support for
+executing simple transactions in series. The implementation supports 
 B+ tree indices, efficient join algorithms, query optimization, multigranularity
 locking to support concurrent execution of transactions, and database recovery.
 
-Specs for each of the projects will be released throughout the semester at the
-following locations:
-
-| **Assignment**                                                                                | **Release Date**    |
-|-----------------------------------------------------------------------------------------------|---------------------|
-| [Project 0: Setup](https://cs186.gitbook.io/project/assignments/proj0)                        | Tuesday, 1/19/2021  |
-| [Project 1: SQL](https://cs186.gitbook.io/project/assignments/proj1)                          | Thursday, 1/21/2021 |
-| [Project 2: B+ Trees](https://cs186.gitbook.io/project/assignments/proj2)                     | Thursday, 2/4/2021   |
-| [Project 3: Joins and Query Optimization](https://cs186.gitbook.io/project/assignments/proj3) | Tuesday, 2/23/2021  |
-| [Project 4: Concurrency](https://cs186.gitbook.io/project/assignments/proj4)                  | Tuesday, 3/16/2021  |
-| [Project 5: Recovery](https://cs186.gitbook.io/project/assignments/proj5)                     | Saturday, 4/10/2021 |
-| [Project 6: NoSQL](https://cs186.gitbook.io/project/assignments/proj6)                         | Friday, 4/24/2021   |
-
 ## Overview
-
-In this document, we explain
-
-- how to fetch the released code
-- how to fetch any updates to the released code
-- how to setup a local development environment
-- how to run tests using IntelliJ
-- how to submit your code to turn in assignments
-- the general architecture of the released code
-
-## Fetching the released code
-
-For each project, we will provide a GitHub Classroom link. Follow the
-link to create a GitHub repository with the starter code for the project you are
-working on. Use `git clone` to get a local copy of the newly
-created repository.
-
-## Fetching any updates to the released code
-
-In a perfect world, we would never have to update the released code because
-it would be perfectly free of bugs. Unfortunately, bugs do surface from time to
-time, and you may have to fetch updates. We will provide further instructions
-via a post on Piazza whenever fetching updates is necessary.
 
 ## Setting up your local development environment
 
-You are free to use any text editor or IDE to complete the assignments, but **we
-will build and test your code in a docker container with Maven**.
+You are free to use any text editor or IDE to complete the assignments.
 
-We recommend setting up a local development environment by installing Java
-8 locally (the version our Docker container runs) and using an IDE such as
+I recommend setting up a local development environment by installing Java
+8 locally (the version my Docker container runs) and using an IDE such as
 IntelliJ.
 
 [Java 8 downloads](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -60,7 +18,7 @@ IntelliJ.
 If you have another version of Java installed, it's probably fine to use it, as
 long as you do not use any features not in Java 8. You should run tests
 somewhat frequently inside the container to make sure that your code works with
-our setup.
+my setup.
 
 To import the project into IntelliJ, make sure that you import as a Maven
 project (select the pom.xml file when importing). Make sure that you can compile
@@ -74,27 +32,6 @@ If you are using IntelliJ, and wish to run the tests for a given assignment
 follow the instructions in the following document:
 
 [IntelliJ setup](intellij-test-setup.md)
-
-## Submitting assignments
-
-To submit a project, navigate to the cloned repo, and use
-`git push` to push all of your changes to the remote GitHub repository created
-by GitHub Classroom. Then, go to Gradescope class and click on the
-project to which you want to submit your code. Select GitHub for the submission
-method (if it hasn't been selected already), and select the repository and branch
-with the code you want to upload and submit. If you have not done this before,
-then you will have to link your GitHub account to Gradescope using the "Connect
-to GitHub" button. If you are unable to find the appropriate repository, then you
-might need to go to https://github.com/settings/applications, click Gradescope,
-and grant access to the `berkeley-cs186-student` organization.
-
-Note that you are only allowed to modify certain files for each assignment, and
-changes to other files you are not allowed to modify will be discarded when we
-run tests.
-
-## The code
-
-As you will be working with this codebase for the rest of the semester, it is a good idea to get familiar with it. The code is located in the `src/main/java/edu/berkeley/cs186/database` directory, while the tests are located in the `src/test/java/edu/berkeley/cs186/database directory`. The following is a brief overview of each of the major sections of the codebase.
 
 ### cli
 
@@ -116,12 +53,12 @@ are not limited to any one part of the codebase.
 ### concurrency
 
 The `concurrency` directory contains a skeleton for adding multigranularity
-locking to the database. You will be implementing this in Project 4.
+locking to the database.
 
 ### databox
 
-Our database has, like most DBMS's, a type system distinct from that of the
-programming language used to implement the DBMS. (Our DBMS doesn't quite provide
+The database has, like most DBMS's, a type system distinct from that of the
+programming language used to implement the DBMS. (The DBMS doesn't quite provide
 SQL types either, but it's modeled on a simplified version of SQL types).
 
 The `databox` directory contains classes which represents values stored in
@@ -140,8 +77,7 @@ String s = x.getString();       // An exception is thrown, since x is not a stri
 
 ### index
 
-The `index` directory contains a skeleton for implementing B+ tree indices. You
-will be implementing this in Project 2.
+The `index` directory contains a skeleton for implementing B+ tree indices. 
 
 ### memory
 
@@ -155,7 +91,7 @@ All reads and writes require the frame be pinned (which is often done via the
 returns a pinned frame for the page).
 
 The `BufferManager` interface is the public interface for the buffer manager of
-our DBMS.
+the DBMS.
 
 The `BufferManagerImpl` class implements a buffer manager using
 a write-back buffer cache with configurable eviction policy. It is responsible
@@ -176,7 +112,7 @@ The `io` directory contains classes for managing data on-disk (in other words,
 disk space management).
 
 The `DiskSpaceManager` interface is the public interface for the disk space
-manager of our DBMS.
+manager of the DBMS.
 
 The `DiskSpaceMangerImpl` class is the implementation of the disk space
 manager, which maps groups of pages (partitions) to OS-level files, assigns
@@ -186,25 +122,23 @@ each page a virtual page number, and loads/writes these pages from/to disk.
 
 The `query` directory contains classes for managing and manipulating queries.
 
-The various operator classes are query operators (pieces of a query), some of
-which you will be implementing in Project 3.
+The various operator classes are query operators (pieces of a query).
 
-The `QueryPlan` class represents a plan for executing a query (which we will be
-covering in more detail later in the semester). It currently executes the query
+The `QueryPlan` class represents a plan for executing a query. It currently executes the query
 as given (runs things in logical order, and performs joins in the order given),
 but you will be implementing
-a query optimizer in Project 3 to run the query in a more efficient manner.
+a query optimizer to run the query in a more efficient manner.
 
 ### recovery
 
 The `recovery` directory contains a skeleton for implementing database recovery
-a la ARIES. You will be implementing this in Project 5.
+a la ARIES.
 
 ### table
 
 The `table` directory contains classes representing entire tables and records.
 
-The `Table` class is, as the name suggests, a table in our database. See the
+The `Table` class is, as the name suggests, a table in the database. See the
 comments at the top of this class for information on how table data is layed out
 on pages.
 
@@ -223,7 +157,7 @@ The `PageDirectory` class is an implementation of a heap file that uses a page d
 
 The `table/stats` directory contains classes for keeping track of statistics of
 a table. These are used to compare the costs of different query plans, when you
-implement query optimization in Project 4.
+implement query optimization.
 
 ### Transaction.java
 
@@ -249,7 +183,7 @@ class, and fully implemented in the `Database.TransactionContext` inner class.
 ### Database.java
 
 The `Database` class represents the entire database. It is the public interface
-of our database - users of our database can use it like a Java library.
+of the database - users of the database can use it like a Java library.
 
 All work is done in transactions, so to use the database, a user would start
 a transaction with `Database#beginTransaction`, then call some of
@@ -288,4 +222,3 @@ db.close();
 
 More complex queries can be found in
 [`src/test/java/edu/berkeley/cs186/database/TestDatabase.java`](src/test/java/edu/berkeley/cs186/database/TestDatabase.java).
-
